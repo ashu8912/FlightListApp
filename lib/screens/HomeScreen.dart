@@ -1,3 +1,5 @@
+import 'package:flights_list/widgets/CityCard.dart';
+import 'package:flights_list/widgets/CustomAppBar.dart';
 import 'package:flights_list/widgets/CustomShapeClipper.dart';
 import "package:flutter/material.dart";
 
@@ -5,16 +7,65 @@ Color firstColor = Color(0xFFF47D15);
 Color secondColor = Color(0xFFEF772C);
 
 class HomeScreen extends StatelessWidget {
+
+  List<CityCard> cityCards=[
+    CityCard(imagePath: "assets/images/lasvegas.jpg",city: "Las Vegas",
+    monthYear: "Feb 2019",
+    newPrice: "2250",
+    oldPrice: "4299",
+    discount:"45"
+    ),
+    CityCard(imagePath: "assets/images/athens.jpg",city:"Athens",
+    monthYear: "Apr 2019",
+    newPrice: "4450",
+    oldPrice: "9999",
+    discount:"50"),
+    CityCard(imagePath: "assets/images/sydney.jpeg",city:"Sydney",
+    monthYear: "Dec 2018",
+    newPrice: "2105",
+    oldPrice: "5400",
+    discount:"51")
+  ];
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+  
+    Widget homeScreenBottomWidget=SingleChildScrollView(child:Column(children: <Widget>[
+   
+   Padding(
+       padding:EdgeInsets.all(16.0),
+        child: Row(children: <Widget>[
+     Text("Currently Watched Items",style: TextStyle(color:Colors.black,fontSize: 16.0),
+     
+     ),Spacer(),
+       Text("View All (12)",style:TextStyle(color:Theme.of(context).primaryColor,fontSize: 14.0))
+     ],),
+   ),
+   Container(
+     height:height*0.30,
+     child: ListView(children:cityCards,
+     scrollDirection: Axis.horizontal,
+     
+     ),
+   )
+ ],));
+ 
     return Scaffold(
-      body: Column(
-        children: <Widget>[HomeScreenTopPart()],
-      ),
-    );
+      bottomNavigationBar: CustomAppBar(),
+      body:  SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child:Container(
+         
+          child: Column(
+            
+            children: <Widget>[HomeScreenTopPart(),homeScreenBottomWidget],
+          ),
+        ),
+      
+    ));
   }
 }
-
+ 
 class HomeScreenTopPart extends StatefulWidget {
   @override
   _HomeScreenTopPartState createState() => _HomeScreenTopPartState();
@@ -27,12 +78,13 @@ class _HomeScreenTopPartState extends State<HomeScreenTopPart> {
  
   @override
   Widget build(BuildContext context) {
+    double height=MediaQuery.of(context).size.height;
     return Stack(
       children: <Widget>[
         ClipPath(
             clipper: CustomShapeClipper(),
             child: Container(
-              height: 400.0,
+              height: height*0.55,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
@@ -45,7 +97,7 @@ class _HomeScreenTopPartState extends State<HomeScreenTopPart> {
                   Row(
                     children: <Widget>[
                       SizedBox(
-                        height: 80,
+                        height: 120,
                       ),
                       Padding(
                           padding: EdgeInsets.all(15),
@@ -94,7 +146,7 @@ class _HomeScreenTopPartState extends State<HomeScreenTopPart> {
                     ],
                   ),
                   SizedBox(
-                    height: 50.0,
+                    height: 20.0,
                   ),
                   Text(
                     " Where would\nyou want to go?",
