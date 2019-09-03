@@ -1,3 +1,4 @@
+import 'package:flights_list/screens/FlightListScreen.dart';
 import 'package:flights_list/widgets/CityCard.dart';
 import 'package:flights_list/widgets/CustomAppBar.dart';
 import 'package:flights_list/widgets/CustomShapeClipper.dart';
@@ -171,7 +172,13 @@ class _HomeScreenTopPartState extends State<HomeScreenTopPart> {
                                 suffixIcon:Material(
                                   elevation: 2.0,
                                   borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                  child: Icon(Icons.search,color:Colors.black),
+                                  child: InkWell(
+                                    onTap: (){
+                                      Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                                        return FlightListScreen();
+                                      }));
+                                    },
+                                    child: Icon(Icons.search,color:Colors.black)),
                                       
 
                                 ),
